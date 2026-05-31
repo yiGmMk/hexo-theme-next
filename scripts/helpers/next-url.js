@@ -57,5 +57,11 @@ hexo.extend.helper.register('next_url', function(path, text, options = {}) {
     }
   }
 
-  return htmlTag(tag, attrs, decodeURI(text), false);
+  let decodedText = text;
+  try {
+    decodedText = decodeURI(text);
+  } catch (e) {
+    // text may contain characters like '%' that aren't valid URI-encoded sequences
+  }
+  return htmlTag(tag, attrs, decodedText, false);
 });
